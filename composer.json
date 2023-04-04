@@ -1,0 +1,33 @@
+{
+    "name": "nielferas/soft-expert-back",
+    "description": "Projeto desenvolvido como teste para empresa soft-export",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        },
+        "files": [
+            "src/Config.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "danielwebgit",
+            "email": "nielferas@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "require": {
+        "phpmailer/phpmailer": "6.0.*",
+        "coffeecode/datalayer": "1.1.2",
+        "coffeecode/router": "1.0.5",
+        "gridonic/json-response": "1.*",
+        "urameshibr/lumen-form-request": "^1.5",
+        "respect/validation": "^2.2"
+    }
+
+}

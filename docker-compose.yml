@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+    # image project
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on: 
+            - redis
+        networks: 
+            - soft_expert
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports: 
+            - "8977:80"
+        volumes: 
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+            - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+
+        networks: 
+            - soft_expert
+
+        extra_hosts:
+            - host.docker.internal:host-gateway
+
+    # db pgsql
+    pgsql:
+        image: postgres
+        restart: unless-stopped
+        environment: 
+            POSTGRES_DB: ${DB_DATABASE}
+            PPOSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_USER: ${DB_USERNAME}
+        volumes: 
+            - ./.docker/pgsql/dbdata:/var/lib/postgresql/data
+        ports: 
+            - "5432:5432"
+        networks: 
+            - soft_expert
+   
+    # pgadmin
+    pgadmin:
+        image: dpage/pgadmin4
+        restart: unless-stopped
+        ports:
+            - 8787:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: pgadmin@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: feras5566
+        depends_on: 
+        - pgsql
+        networks: 
+                - soft_expert
+
+networks: 
+    soft_expert:
+        driver: bridge

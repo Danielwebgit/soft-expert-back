@@ -1,0 +1,26 @@
+{
+    "name": "gridonic/json-response",
+    "type": "library",
+    "description": "Structures JSON responses for the JSend format",
+    "keywords": ["json", "http", "symfony"],
+    "homepage": "http://gridonic.ch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gridonic GmbH",
+            "homepage": "http://gridonic.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/http-foundation": "~2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gridonic\\": "src"
+        }
+    }
+}
